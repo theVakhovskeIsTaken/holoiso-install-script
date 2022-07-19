@@ -28,7 +28,7 @@ echo "Pacman DB update complete... Continuing in 2 seconds..."
 sleep 2
 INSTALLER_UPD_QUERY=$(pacman -Qu | grep holoiso-install-script)
 if [ -n "${INSTALLER_UPD_QUERY}" ]; then
-  pacman -S --noconfirm holoiso-install-script
+  pacman -S --noconfirm --overwrite="*" holoiso-install-script
   sleep 2
   clear
   echo "Installer updated. Please run holoinstall again."
