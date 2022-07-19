@@ -298,10 +298,19 @@ base_os_install() {
 		echo "Error: Password does not match."
 	done
 	# Create user
+	NAME_REGEX="^[a-z][-a-z0-9_]*\$"
 	while true; do
 		read "?Enter username for this installation: " HOLOUSER
 		if [ $HOLOUSER = "root" ]; then
 			echo "User \"root\" already exists!"
+		elif [ ${#HOLOUSER} -gt 32 ]; then
+			echo "Username must not exceed 32 characters long"
+		elif [[ ! $HOLOUSER =~ $NAME_REGEX ]]; then
+			echo "Invalid username \"$HOLOUSER\""
+			echo "Username need to follow these rules:"
+			echo
+			echo "- Must start with a lower-case letter."
+			echo "- May only contain lowercase letters, digits, hyphens, and underscores."
 		else
 			break
 		fi
